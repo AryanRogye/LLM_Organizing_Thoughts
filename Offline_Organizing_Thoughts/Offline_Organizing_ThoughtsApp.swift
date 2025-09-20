@@ -13,6 +13,7 @@ struct Offline_Organizing_ThoughtsApp: App {
     @StateObject var appState       : AppState  = AppState()
     @StateObject var authState      : AuthState = AuthState()
     @StateObject var audioManager   : AudioRecorderManager = AudioRecorderManager()
+    @StateObject var spacesManager  : SpacesManager        = SpacesManager()
     
     init() {
         Notify.shared.requestAuth()
@@ -35,5 +36,6 @@ struct Offline_Organizing_ThoughtsApp: App {
         .environmentObject(appState)
         .environmentObject(authState)
         .environmentObject(audioManager)
+        .environmentObject(spacesManager)
     }
 }

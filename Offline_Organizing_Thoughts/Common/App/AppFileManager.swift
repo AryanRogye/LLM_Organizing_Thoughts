@@ -17,7 +17,7 @@ final class AppFileManager {
         let vals = try url.resourceValues(forKeys: [.creationDateKey, .contentModificationDateKey])
         let date = vals.creationDate ?? vals.contentModificationDate ?? Date()
         
-        let asset = AVURLAsset(url: url)
+        _ = AVURLAsset(url: url)
         
         var duration: Double = 0
         if let audioFile = try? AVAudioFile(forReading: url) {

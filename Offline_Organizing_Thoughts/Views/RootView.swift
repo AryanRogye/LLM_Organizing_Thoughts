@@ -32,12 +32,14 @@ struct RootView: View {
     @Previewable @StateObject var appState      : AppState  = AppState()
     @Previewable @StateObject var authState     : AuthState = AuthState()
     @Previewable @StateObject var audioManager  : AudioRecorderManager = AudioRecorderManager()
-    
+    @Previewable @StateObject var spacesManager  : SpacesManager        = SpacesManager()
+
     NavigationStack {
         RootView()
             .environmentObject(appState)
             .environmentObject(authState)
             .environmentObject(audioManager)
+            .environmentObject(spacesManager)
             .task {
                 #if DEBUG
                 audioManager.recordings = audioManager.fileManagerBridge.loadMockRecordings()

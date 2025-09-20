@@ -32,7 +32,7 @@ enum Tabs: String, CaseIterable, Hashable {
         case .home:
             ProjectsScreen()
         case .spaces:
-            SpacesView()
+            SpacesRootView()
         case .library:
             LibraryView()
 //        case .settings:
