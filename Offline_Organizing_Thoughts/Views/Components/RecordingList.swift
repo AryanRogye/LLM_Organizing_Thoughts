@@ -17,8 +17,8 @@ struct RecordingList: View {
     
     var limit: RecordingLimitMode = .none
     @Binding var recordings: [RecordingItem]
-    
     var playView: (URL) -> AudioView
+    var deleteRecording: ((IndexSet) -> ())?
     
     private var displayedRecordings: [RecordingItem] {
         switch limit {
@@ -37,33 +37,29 @@ struct RecordingList: View {
                 playView: {
                     url in playView(url)
                 },
-                renameAction: {
-                    //                        rootVM.requestRename(item: item)
-                },
                 deleteAction: {
                     if let idx = recordings.firstIndex(of: item) {
-                        //                            deleteRecording(at: IndexSet(integer: idx))
+                        deleteRecording?(IndexSet(integer: idx))
                     }
                 }
             )
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                 Button(role: .destructive) {
                     if let idx = recordings.firstIndex(of: item) {
-                        //                            deleteRecording(at: IndexSet(integer: idx))
+                        deleteRecording?(IndexSet(integer: idx))
                     }
                 } label: {
                     Label("Delete", systemImage: "trash")
                 }
             }
         }
-            //            .onDelete(perform: audioRM.deleteRecording)
+        .onDelete(perform: deleteRecording)
     }
 }
 
 struct RecordingRow: View {
     var item: RecordingItem
     var playView: (URL) -> AudioView
-    var renameAction: () -> Void
     var deleteAction: () -> Void
     
     var body: some View {
@@ -71,7 +67,6 @@ struct RecordingRow: View {
             title: item.url.deletingPathExtension().lastPathComponent,
             subtitle: "\(item.date.formatted(date: .abbreviated, time: .standard)) · \(formatTime(item.duration))",
             playView: { playView(item.url) },
-            renameAction: renameAction,
             deleteAction: deleteAction
         )
     }
@@ -82,7 +77,6 @@ struct RecordingRowHeader: View {
     let title: String
     let subtitle: String
     var playView: () -> AudioView
-    var renameAction: () -> Void
     var deleteAction: () -> Void
     
     var body: some View {

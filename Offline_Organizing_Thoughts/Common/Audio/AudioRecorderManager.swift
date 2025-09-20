@@ -94,4 +94,23 @@ final class AudioRecorderManager: ObservableObject {
         pendingURL = nil
         showSavePrompt = false
     }
+    
+    func deleteRecording(at index: Int) {
+        guard recordings.indices.contains(index) else { return }
+        let item = recordings[index]
+        do {
+            try fileManagerBridge.delete(item)
+            recordings.remove(at: index)
+        } catch {
+            // Consider surfacing this via UI in the future
+            print("Failed to delete recording: \(error)")
+        }
+    }
+    
+    func deleteRecording(at offsets: IndexSet) {
+        // Delete from highest to lowest to maintain valid indices
+        for i in offsets.sorted(by: >) {
+            deleteRecording(at: i)
+        }
+    }
 }

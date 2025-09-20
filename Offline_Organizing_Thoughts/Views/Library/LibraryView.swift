@@ -19,6 +19,9 @@ struct LibraryView: View {
                     recordings: $audioManager.recordings,
                     playView: { url in
                         AudioView(url: url)
+                    },
+                    deleteRecording: { offsets in
+                        audioManager.deleteRecording(at: offsets)
                     }
                 )
             }
