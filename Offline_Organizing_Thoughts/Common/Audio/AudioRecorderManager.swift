@@ -21,14 +21,24 @@ final class AudioRecorderManager: ObservableObject {
     @Published var showSavePrompt = false
     @Published var pendingURL: URL? = nil
     
+    @Published var transcribeReady: Bool = false
+    
     private var timer: Timer?
     private var startDate: Date?
     
     let recorder = VoiceProcessingRecorder()
+    let transcribe = TranscribeManager()
     
     init() {
         if let recordings = try? fileManagerBridge.loadRecordings() {
             self.recordings = recordings
+        }
+        Task {
+            transcribeReady = await transcribe.prepareIfNeeded()
+            Notify.shared.send(
+                title: "Transcription Model",
+                body: "\(transcribeReady ? "Ready" : "Not Ready")"
+            )
         }
     }
     

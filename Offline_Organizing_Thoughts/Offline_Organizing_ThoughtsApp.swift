@@ -14,6 +14,10 @@ struct Offline_Organizing_ThoughtsApp: App {
     @StateObject var authState      : AuthState = AuthState()
     @StateObject var audioManager   : AudioRecorderManager = AudioRecorderManager()
     
+    init() {
+        Notify.shared.requestAuth()
+    }
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack {

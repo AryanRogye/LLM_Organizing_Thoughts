@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		9BF1C7FF2E7F38CA00522438 /* WhisperKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9BF1C7FE2E7F38CA00522438 /* WhisperKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		9B7D80302E7C9AC500E3E42B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BF1C7FF2E7F38CA00522438 /* WhisperKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = Offline_Organizing_Thoughts;
 			packageProductDependencies = (
+				9BF1C7FE2E7F38CA00522438 /* WhisperKit */,
 			);
 			productName = Offline_Organizing_Thoughts;
 			productReference = 9B7D80222E7C9AC400E3E42B /* Offline_Organizing_Thoughts.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = 9B7D80192E7C9AC400E3E42B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				9BF1C7FD2E7F38CA00522438 /* XCRemoteSwiftPackageReference "WhisperKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9B7D80232E7C9AC400E3E42B /* Products */;
 			projectDirPath = "";
@@ -580,6 +589,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9BF1C7FD2E7F38CA00522438 /* XCRemoteSwiftPackageReference "WhisperKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/argmaxinc/WhisperKit";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9BF1C7FE2E7F38CA00522438 /* WhisperKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9BF1C7FD2E7F38CA00522438 /* XCRemoteSwiftPackageReference "WhisperKit" */;
+			productName = WhisperKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9B7D801A2E7C9AC400E3E42B /* Project object */;
 }
