@@ -12,7 +12,7 @@ import Foundation
 final class AudioRecorderManager: ObservableObject {
     
     @Published var recordings: [RecordingItem] = []
-    private let fileManagerBridge = AppFileManager()
+    let fileManagerBridge = AppFileManager()
     
     @Published var level: Float = 0
     @Published var elapsed: TimeInterval = 0

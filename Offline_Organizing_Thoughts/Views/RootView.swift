@@ -38,5 +38,10 @@ struct RootView: View {
             .environmentObject(appState)
             .environmentObject(authState)
             .environmentObject(audioManager)
+            .task {
+                #if DEBUG
+                audioManager.recordings = audioManager.fileManagerBridge.loadMockRecordings()
+                #endif
+            }
     }
 }

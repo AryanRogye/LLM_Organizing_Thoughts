@@ -31,35 +31,32 @@ struct RecordingList: View {
     }
     
     var body: some View {
-        List {
-            ForEach(displayedRecordings) { item in
-                RecordingRow(
-                    item: item,
-                    playView: {
-                        url in playView(url)
-                    },
-                    renameAction: {
-                        //                        rootVM.requestRename(item: item)
-                    },
-                    deleteAction: {
-                        if let idx = recordings.firstIndex(of: item) {
-                            //                            deleteRecording(at: IndexSet(integer: idx))
-                        }
-                    }
-                )
-                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                    Button(role: .destructive) {
-                        if let idx = recordings.firstIndex(of: item) {
-                            //                            deleteRecording(at: IndexSet(integer: idx))
-                        }
-                    } label: {
-                        Label("Delete", systemImage: "trash")
+        ForEach(displayedRecordings) { item in
+            RecordingRow(
+                item: item,
+                playView: {
+                    url in playView(url)
+                },
+                renameAction: {
+                    //                        rootVM.requestRename(item: item)
+                },
+                deleteAction: {
+                    if let idx = recordings.firstIndex(of: item) {
+                        //                            deleteRecording(at: IndexSet(integer: idx))
                     }
                 }
+            )
+            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                Button(role: .destructive) {
+                    if let idx = recordings.firstIndex(of: item) {
+                        //                            deleteRecording(at: IndexSet(integer: idx))
+                    }
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
             }
-            //            .onDelete(perform: audioRM.deleteRecording)
         }
-        .listStyle(.insetGrouped)
+            //            .onDelete(perform: audioRM.deleteRecording)
     }
 }
 

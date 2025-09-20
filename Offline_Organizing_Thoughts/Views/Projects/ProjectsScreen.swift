@@ -31,7 +31,6 @@ struct ProjectsScreen: View {
                 VStack {
                     
                     topRow
-                    
                     ScrollView {
                         // Track scroll offset at the very top of the scroll view
                         GeometryReader { geo in
@@ -41,15 +40,7 @@ struct ProjectsScreen: View {
                         .frame(height: 0)
                         
                         // Demo content to make the behavior visible
-                        Section(header: Text("Recent Recordings")) {
-                            RecordingList(
-                                limit: .count(3),
-                                recordings: $audioManager.recordings,
-                                playView: { url in
-                                    AudioView(url: url)
-                                }
-                            )
-                        }
+                        recentRecords
                     }
                     .onPreferenceChange(ScrollOffsetKey.self) { y in
                         // Negative y means we scrolled down
@@ -107,6 +98,24 @@ struct ProjectsScreen: View {
             
         }
         .padding()
+    }
+    
+    // MARK: - Recent Records
+    private var recentRecords: some View {
+        Section(header: HStack {
+            Text("Recents")
+                .font(.title2.weight(.semibold))
+            Spacer()
+        }.padding(.horizontal)) {
+            RecordingList(
+                limit: .count(3),
+                recordings: $audioManager.recordings,
+                playView: { url in
+                    AudioView(url: url)
+                }
+            )
+            .padding()
+        }
     }
     
     // MARK: - Record Button

@@ -30,6 +30,21 @@ final class AppFileManager {
         return RecordingItem(url: url, date: date, duration: duration)
     }
     
+    #if DEBUG
+    public func loadMockRecordings() -> [RecordingItem] {
+        let now = Date()
+        let tmp = FileManager.default.temporaryDirectory
+        let calendar = Calendar.current
+        let mocks: [RecordingItem] = (0..<8).map { i in
+            let url = tmp.appendingPathComponent("Mock_Recording_\(i + 1).caf")
+            let date = calendar.date(byAdding: .minute, value: -(i * 7), to: now) ?? now
+            let duration = Double.random(in: 5...180)
+            return RecordingItem(url: url, date: date, duration: duration)
+        }
+        // newest first
+        return mocks.sorted { $0.date > $1.date }
+    }
+    #endif
     // MARK: - Load Recordings
     public func loadRecordings(exts: Set<String> = ["caf"]) throws -> [RecordingItem] {
         

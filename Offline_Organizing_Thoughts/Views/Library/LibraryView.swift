@@ -14,12 +14,15 @@ struct LibraryView: View {
     
     var body: some View {
         VStack {
-            RecordingList(
-                recordings: $audioManager.recordings,
-                playView: { url in
-                    AudioView(url: url)
-                }
-            )
+            List {
+                RecordingList(
+                    recordings: $audioManager.recordings,
+                    playView: { url in
+                        AudioView(url: url)
+                    }
+                )
+            }
+            .listStyle(.insetGrouped)
         }
     }
 }
