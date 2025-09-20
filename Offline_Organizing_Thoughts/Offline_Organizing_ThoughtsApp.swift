@@ -10,8 +10,9 @@ import SwiftUI
 @main
 struct Offline_Organizing_ThoughtsApp: App {
     
-    @StateObject var appState  : AppState  = AppState()
-    @StateObject var authState : AuthState = AuthState()
+    @StateObject var appState       : AppState  = AppState()
+    @StateObject var authState      : AuthState = AuthState()
+    @StateObject var audioManager   : AudioRecorderManager = AudioRecorderManager()
     
     var body: some Scene {
         WindowGroup {
@@ -29,5 +30,6 @@ struct Offline_Organizing_ThoughtsApp: App {
         }
         .environmentObject(appState)
         .environmentObject(authState)
+        .environmentObject(audioManager)
     }
 }

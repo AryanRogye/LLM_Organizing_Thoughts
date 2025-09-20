@@ -15,32 +15,28 @@ struct RootView: View {
         TabView(selection: $appState.tab) {
             ForEach(Tabs.allCases, id: \.self) { tab in
                 tab.view
-                .tabItem {
-                    Label(tab.rawValue, systemImage: tab.icon)
-                }
-                .tag(tab)
+                    .tabItem {
+                        Label(tab.rawValue, systemImage: tab.icon)
+                    }
+                    .tag(tab)
             }
         }
         .toolbarBackground(.automatic, for: .tabBar)
         .toolbarBackground(.visible, for: .tabBar)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {}) {
-                    Image(systemName: "gear")
-                        .resizable()
-                        .frame(width: 14, height: 14)
-                }
-            }
-        }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 
 #Preview {
-    @Previewable @StateObject var appState  : AppState  = AppState()
-    @Previewable @StateObject var authState : AuthState = AuthState()
+    @Previewable @StateObject var appState      : AppState  = AppState()
+    @Previewable @StateObject var authState     : AuthState = AuthState()
+    @Previewable @StateObject var audioManager  : AudioRecorderManager = AudioRecorderManager()
     
-    RootView()
-        .environmentObject(appState)
-        .environmentObject(authState)
+    NavigationStack {
+        RootView()
+            .environmentObject(appState)
+            .environmentObject(authState)
+            .environmentObject(audioManager)
+    }
 }

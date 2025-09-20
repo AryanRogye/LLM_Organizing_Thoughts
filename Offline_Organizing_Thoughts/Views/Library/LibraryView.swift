@@ -7,10 +7,19 @@
 
 import SwiftUI
 
+
 struct LibraryView: View {
+    
+    @EnvironmentObject var audioManager : AudioRecorderManager
+    
     var body: some View {
         VStack {
-            
+            RecordingList(
+                recordings: $audioManager.recordings,
+                playView: { url in
+                    AudioView(url: url)
+                }
+            )
         }
     }
 }

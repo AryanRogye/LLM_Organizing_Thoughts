@@ -10,6 +10,7 @@ import SwiftUI
 enum Tabs: String, CaseIterable, Hashable {
     case home = "Home"
     case library = "Library"
+//    case settings = "Settings"
     
     var icon: String {
         switch self {
@@ -17,6 +18,8 @@ enum Tabs: String, CaseIterable, Hashable {
             return "house.fill"
         case .library:
             return "books.vertical.fill"
+//        case .settings:
+//            return "gearshape.fill"
         }
     }
     
@@ -27,6 +30,8 @@ enum Tabs: String, CaseIterable, Hashable {
             ProjectsScreen()
         case .library:
             LibraryView()
+//        case .settings:
+//            SettingsScreen()
         }
     }
 }
