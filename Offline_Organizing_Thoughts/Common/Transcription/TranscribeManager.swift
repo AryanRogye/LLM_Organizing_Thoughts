@@ -19,12 +19,21 @@ final public class TranscribeManager {
         
     }
     
+    internal let whisperFolderName = "WhisperKit"
+    
     // MARK: - Model init
     public func prepareIfNeeded() async -> Bool {
         if pipe != nil { return true }
         do {
-            let config = WhisperKitConfig(model: "base.en") // or "small.en", "large-v3", etc.
-            pipe = try await WhisperKit(config)
+            // let WhisperKit so it downloads if missing
+            let config = WhisperKitConfig(model: "base.en")
+            let tmpPipe = try await WhisperKit(config)
+            
+            // Persist the downloaded model & wire symlink
+            try ensurePersistentModel()
+            
+            // Keep using the pipe; future launches will hit the symlinked path
+            self.pipe = tmpPipe
             return true
         } catch {
             return false
@@ -138,4 +147,3 @@ final public class TranscribeManager {
         cancelling = true
     }
 }
-
