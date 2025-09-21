@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9B7D80212E7C9AC400E3E42B"
-               BuildableName = "Offline_Organizing_Thoughts.app"
-               BlueprintName = "Offline_Organizing_Thoughts"
-               ReferencedContainer = "container:Offline_Organizing_Thoughts.xcodeproj">
+               BuildableName = "ComfySpaces.app"
+               BlueprintName = "ComfySpaces"
+               ReferencedContainer = "container:ComfySpaces.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B7D80212E7C9AC400E3E42B"
-            BuildableName = "Offline_Organizing_Thoughts.app"
-            BlueprintName = "Offline_Organizing_Thoughts"
-            ReferencedContainer = "container:Offline_Organizing_Thoughts.xcodeproj">
+            BuildableName = "ComfySpaces.app"
+            BlueprintName = "ComfySpaces"
+            ReferencedContainer = "container:ComfySpaces.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B7D80212E7C9AC400E3E42B"
-            BuildableName = "Offline_Organizing_Thoughts.app"
-            BlueprintName = "Offline_Organizing_Thoughts"
-            ReferencedContainer = "container:Offline_Organizing_Thoughts.xcodeproj">
+            BuildableName = "ComfySpaces.app"
+            BlueprintName = "ComfySpaces"
+            ReferencedContainer = "container:ComfySpaces.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

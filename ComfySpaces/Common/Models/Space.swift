@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Space: Identifiable, Codable, Equatable {
+struct Space: Identifiable, Codable, Equatable, Hashable {
     let id: UUID
     var name: String
     var columns: [KanbanColumn]
@@ -21,7 +21,7 @@ struct Space: Identifiable, Codable, Equatable {
     }
 }
 
-struct KanbanColumn: Identifiable, Codable, Equatable {
+struct KanbanColumn: Identifiable, Codable, Equatable, Hashable {
     let id: UUID
     var name: String
     
@@ -31,7 +31,7 @@ struct KanbanColumn: Identifiable, Codable, Equatable {
     }
 }
 
-struct KanbanItem: Identifiable, Codable, Equatable {
+struct KanbanItem: Identifiable, Codable, Equatable, Hashable {
     let id: UUID
     var title: String
     var notes: String

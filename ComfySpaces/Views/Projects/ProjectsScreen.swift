@@ -17,7 +17,9 @@ private struct ScrollOffsetKey: PreferenceKey {
 
 struct ProjectsScreen: View {
     
-    @EnvironmentObject private var audioManager : AudioRecorderManager
+    @EnvironmentObject private var audioManager  : AudioRecorderManager
+    @EnvironmentObject private var spacesManager : SpacesManager
+    @EnvironmentObject var appState : AppState
 
     var body: some View {
         if audioManager.isRecording {
@@ -39,7 +41,10 @@ struct ProjectsScreen: View {
                         }
                         .frame(height: 0)
                         
-                        // Demo content to make the behavior visible
+                        // Recent Spaces
+                        recentSpaces
+                        
+                        // Recent Recordings
                         recentRecords
                     }
                     .onPreferenceChange(ScrollOffsetKey.self) { y in
@@ -51,12 +56,6 @@ struct ProjectsScreen: View {
                 
                 recordButton
             }
-            //        // Glassy, modern look for tab bar and navigation bar
-            //        .toolbar(hideTabBar ? .hidden : .visible, for: .tabBar)
-            //        .toolbarBackground(.automatic, for: .tabBar)
-            //        .toolbarBackground(.visible, for: .tabBar)
-            //        .toolbarBackground(.automatic, for: .navigationBar)
-            //        .toolbarBackground(.visible, for: .navigationBar)
             .confirmationDialog(
                 "Save recording?",
                 isPresented: $audioManager.showSavePrompt,
@@ -79,7 +78,7 @@ struct ProjectsScreen: View {
     private var topRow: some View {
         HStack(alignment: .center) {
             VStack {
-                Text("Voice Space")
+                Text("ComfySpace")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.system(size: 34, weight: .bold, design: .default))
                 Text("Simple voice notes")
@@ -98,6 +97,28 @@ struct ProjectsScreen: View {
             
         }
         .padding()
+    }
+    
+    // MARK: - Recent Spaces
+    private var recentSpaces: some View {
+        Section(header: HStack {
+            Text("Spaces")
+                .font(.title2.weight(.semibold))
+            Spacer()
+        }.padding(.horizontal)) {
+            SpaceCarouselView(spaces: spacesManager.spaces) { space in
+                appState.tab = .spaces
+                spacesManager.selectedSpace = nil
+                spacesManager.showingSpaces = false
+
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    spacesManager.selectedSpace = space
+                    spacesManager.showingSpaces = true
+                }
+            }
+            .frame(height: 170)
+        }
     }
     
     // MARK: - Recent Records
