@@ -21,10 +21,9 @@ class SpacesManager: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
     private let spacesDecider = SpacesDecider()
-    
+
     init() {
         load()
-        // auto-save on changes (debounced so you don’t thrash disk)
         $spaces
             .dropFirst()
             .debounce(for: .milliseconds(400), scheduler: DispatchQueue.main)
@@ -49,5 +48,14 @@ class SpacesManager: ObservableObject {
                 showingSpaces = false
             }
         }
+    }
+    
+    
+    /*
+     Function will let our model decide
+     which space is perfect for the text
+     */
+    func decideSpace(for text: String) {
+        
     }
 }

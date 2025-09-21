@@ -19,16 +19,24 @@ actor Cleaner {
     
     private let session = LanguageModelSession(
         instructions: """
-        You are a sanitizer. Remove or replace profanity, sexual, or unsafe content \
-        from transcripts while keeping the general meaning.
-        Return only the cleaned text.
+        You are a text normalizer.
+        Goal: return the input text unchanged unless it contains strongly offensive language.
+        If offensive words appear, replace only the offending words with '***' while preserving meaning and punctuation.
+        Do not add explanations, warnings, or extra text.
+        Output must be the cleaned text only.
+        
+        Examples:
+        - Input: "The quick brown fox jumps over the lazy dog."
+          Output: "The quick brown fox jumps over the lazy dog."
+        - Input: "You are a %#@!"
+          Output: "You are a ***"
         """
     )
     
     func clean(_ text: String) async throws -> String {
         let res = try await session.respond(generating: CleanResult.self) {
             Prompt {
-                "Transcript:\n\(text)"
+                "Text:\n\(text)"
                 "Return only the cleaned transcript via `cleaned`."
             }
         }

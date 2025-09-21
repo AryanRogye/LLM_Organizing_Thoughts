@@ -23,8 +23,15 @@ struct LibraryView: View {
                     deleteRecording: { offsets in
                         audioManager.deleteRecording(at: offsets)
                     },
-                    onEmojiGenerate: { recordingItem in
-                        audioManager.generateEmoji(recordingItem)
+                    onEmojiGenerate: { recordingItem, transcript, emoji_one, emoji_two, final_emoji, transcript_duration in
+                        await audioManager.generateEmoji(
+                            recordingItem,
+                            transcript: transcript,
+                            emoji_one: emoji_one,
+                            emoji_two: emoji_two,
+                            final_emoji: final_emoji,
+                            transcript_duration: transcript_duration
+                        )
                     }
                 )
             }

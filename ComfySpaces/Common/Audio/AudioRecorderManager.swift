@@ -127,25 +127,56 @@ final class AudioRecorderManager: ObservableObject {
         }
     }
     
-    func generateEmoji(_ item: RecordingItem) {
-        Task {
-            let transcription = try await transcribe.transcribe(url: item.url, progress: { progress in
-                
-            })
-            
-            let emoji = try await emojiPicker.pick(from: transcription, excluding: item.emoji)
-            print("Got Back Emoji: \(emoji)")
-            
-            var itemCopy = item
-            itemCopy.emoji = emoji
-            
-            fileManagerBridge.setEmoji(for: itemCopy)
-            
-            await MainActor.run {
-                if let idx = recordings.firstIndex(where: { $0.id == item.id }) {
-                    recordings[idx].emoji = emoji
+    func generateEmoji(
+        _ item: RecordingItem,
+        transcript: @escaping (String) -> Void,
+        emoji_one: @escaping (String) -> Void,
+        emoji_two: @escaping (String) -> Void,
+        final_emoji: @escaping (String) -> Void,
+        transcript_duration: @escaping (String) -> Void
+    ) async {
+        var t: Timer?
+        do {
+            // Measure actual wall-clock time to transcribe
+            let start = Date()
+            transcript_duration(formatTime(0))
+            t = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { _ in
+                let elapsed = Date().timeIntervalSince(start)
+                DispatchQueue.main.async {
+                    transcript_duration(formatTime(elapsed))
                 }
             }
+            
+            let transcription = try await transcribe.transcribe(url: item.url, progress: { _ in })
+            
+            // Stop timer and emit final elapsed time
+            t?.invalidate(); t = nil
+            let total = Date().timeIntervalSince(start)
+            transcript_duration(formatTime(total))
+
+            transcript(transcription)
+
+            let emoji = try await emojiPicker.pick(
+                from: transcription,
+                excluding: item.emoji,
+                emoji_one: emoji_one,
+                emoji_two: emoji_two,
+                final_emoji: final_emoji
+            )
+
+            print("Got Back Emoji: \(emoji)")
+
+            var itemCopy = item
+            itemCopy.emoji = emoji
+
+            fileManagerBridge.setEmoji(for: itemCopy)
+
+            if let idx = recordings.firstIndex(where: { $0.id == item.id }) {
+                recordings[idx].emoji = emoji
+            }
+        } catch {
+            t?.invalidate(); t = nil
+            print("generateEmoji failed: \(error)")
         }
     }
 }

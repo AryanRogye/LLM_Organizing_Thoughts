@@ -14,7 +14,14 @@ struct EmojiResult: Equatable {
 }
 
 protocol EmojiPickerProviding {
-    func pick(from transcript: String, excluding: String?) async throws -> String
+    func pick(
+        from transcript: String,
+        excluding: String?,
+        emoji_one: @escaping (String) -> Void,
+        emoji_two: @escaping (String) -> Void,
+        final_emoji: @escaping (String) -> Void
+        
+    ) async throws -> String
 }
 
 final class EmojiPickerService: EmojiPickerProviding {
@@ -37,8 +44,13 @@ final class EmojiPickerService: EmojiPickerProviding {
             """
     )
     
-    func pick(from transcript: String, excluding: String? = nil) async throws -> String {
-        
+    func pick(
+        from transcript: String,
+        excluding: String? = nil,
+        emoji_one: @escaping (String) -> Void,
+        emoji_two: @escaping (String) -> Void,
+        final_emoji: @escaping (String) -> Void
+    ) async throws -> String {
         do {
             let cleaned = try await Cleaner.shared.clean(transcript)
             
@@ -57,6 +69,8 @@ final class EmojiPickerService: EmojiPickerProviding {
 
             // If no exclusion requested, return the primary choice
             guard let excluding = excluding else { return chosen }
+            
+            emoji_one(chosen)
 
             // Request a second candidate that avoids both the excluded emoji and the primary choice
             func requestSecondCandidate() async throws -> String {
@@ -83,6 +97,7 @@ final class EmojiPickerService: EmojiPickerProviding {
             }
 
             print("Second candidate emoji: \(secondStr)")
+            emoji_two(secondStr)
 
             // If we still failed to produce a distinct second candidate, just return the primary
             guard secondStr != chosen, secondStr != excluding else {
@@ -103,6 +118,7 @@ final class EmojiPickerService: EmojiPickerProviding {
             }
 
             print("Returning emoji: \(decider.content.emoji)")
+            final_emoji(decider.content.emoji)
             return decider.content.emoji
             
         } catch {
