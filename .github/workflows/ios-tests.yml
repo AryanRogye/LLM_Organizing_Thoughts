@@ -8,7 +8,8 @@ on:
 
 jobs:
   test:
-    runs-on: macos-14
+    name: Xcode Unit Tests
+    runs-on: macos-15
     timeout-minutes: 30
     concurrency:
       group: ios-tests-${{ github.ref }}
