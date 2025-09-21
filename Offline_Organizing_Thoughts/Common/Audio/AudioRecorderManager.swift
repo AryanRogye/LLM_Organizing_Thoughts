@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import FoundationModels
 
 @MainActor
 final class AudioRecorderManager: ObservableObject {
@@ -28,6 +29,8 @@ final class AudioRecorderManager: ObservableObject {
     
     let recorder = VoiceProcessingRecorder()
     let transcribe = TranscribeManager()
+    
+    let emojiPicker : EmojiPickerProviding = EmojiPickerService()
     
     init() {
         if let recordings = try? fileManagerBridge.loadRecordings() {
@@ -121,6 +124,17 @@ final class AudioRecorderManager: ObservableObject {
         // Delete from highest to lowest to maintain valid indices
         for i in offsets.sorted(by: >) {
             deleteRecording(at: i)
+        }
+    }
+    
+    func generateEmoji(_ item: RecordingItem) {
+        Task {
+            let transcription = try await transcribe.transcribe(url: item.url, progress: { progress in
+                
+            })
+            print("transcription: \(transcription)")
+            let emoji = try await emojiPicker.pick(from: transcription)
+            print("Got Back Emoji: \(emoji)")
         }
     }
 }

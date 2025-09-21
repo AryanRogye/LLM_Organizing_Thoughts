@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9BD4BE6F2E7F6D9900278A0D /* KanbanColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4BE6E2E7F6D9700278A0D /* KanbanColumnView.swift */; };
+		9BD4BE722E7F782700278A0D /* EmojiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4BE712E7F782500278A0D /* EmojiPicker.swift */; };
+		9BD4BE742E7F797E00278A0D /* CleanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4BE732E7F797D00278A0D /* CleanResult.swift */; };
 		9BF1C7FF2E7F38CA00522438 /* WhisperKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9BF1C7FE2E7F38CA00522438 /* WhisperKit */; };
 		9BF1C8952E7F4F0600522438 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BF1C8912E7F4F0600522438 /* Assets.xcassets */; };
 		9BF1C8962E7F4F0600522438 /* Offline_Organizing_Thoughts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BF1C8932E7F4F0600522438 /* Offline_Organizing_Thoughts.plist */; };
@@ -62,6 +64,8 @@
 		9B7D802F2E7C9AC500E3E42B /* Offline_Organizing_ThoughtsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Offline_Organizing_ThoughtsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B7D80392E7C9AC500E3E42B /* Offline_Organizing_ThoughtsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Offline_Organizing_ThoughtsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BD4BE6E2E7F6D9700278A0D /* KanbanColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanColumnView.swift; sourceTree = "<group>"; };
+		9BD4BE712E7F782500278A0D /* EmojiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPicker.swift; sourceTree = "<group>"; };
+		9BD4BE732E7F797D00278A0D /* CleanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanResult.swift; sourceTree = "<group>"; };
 		9BF1C86F2E7F4F0600522438 /* AppFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileManager.swift; sourceTree = "<group>"; };
 		9BF1C8702E7F4F0600522438 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		9BF1C8712E7F4F0600522438 /* Notify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notify.swift; sourceTree = "<group>"; };
@@ -152,6 +156,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9BD4BE702E7F77BE00278A0D /* FoundationModel */ = {
+			isa = PBXGroup;
+			children = (
+				9BD4BE732E7F797D00278A0D /* CleanResult.swift */,
+				9BD4BE712E7F782500278A0D /* EmojiPicker.swift */,
+			);
+			path = FoundationModel;
+			sourceTree = "<group>";
+		};
 		9BF1C8722E7F4F0600522438 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +215,7 @@
 		9BF1C87F2E7F4F0600522438 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9BD4BE702E7F77BE00278A0D /* FoundationModel */,
 				9BF1C8B12E7F54E000522438 /* Spaces */,
 				9BF1C8722E7F4F0600522438 /* App */,
 				9BF1C8782E7F4F0600522438 /* Auth */,
@@ -476,6 +490,8 @@
 				9BF1C89D2E7F4F0600522438 /* AuthState.swift in Sources */,
 				9BF1C89E2E7F4F0600522438 /* RecordingItem.swift in Sources */,
 				9BF1C89F2E7F4F0600522438 /* Tabs.swift in Sources */,
+				9BD4BE742E7F797E00278A0D /* CleanResult.swift in Sources */,
+				9BD4BE722E7F782700278A0D /* EmojiPicker.swift in Sources */,
 				9BF1C8A02E7F4F0600522438 /* TranscribeManager.swift in Sources */,
 				9BF1C8A12E7F4F0600522438 /* TranscribeManager+Helpers.swift in Sources */,
 				9BF1C8A22E7F4F0600522438 /* GlassCard.swift in Sources */,

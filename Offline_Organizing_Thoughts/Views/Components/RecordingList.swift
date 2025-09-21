@@ -19,6 +19,7 @@ struct RecordingList: View {
     @Binding var recordings: [RecordingItem]
     var playView: (URL) -> AudioView
     var deleteRecording: ((IndexSet) -> ())?
+    var onEmojiGenerate: ((RecordingItem) -> Void)?
     
     private var displayedRecordings: [RecordingItem] {
         switch limit {
@@ -43,6 +44,13 @@ struct RecordingList: View {
                     }
                 }
             )
+            .swipeActions(edge: .trailing) {
+                Button {
+                    onEmojiGenerate?(item)
+                } label: {
+                    Label("Emoji", systemImage: "face.smiling")
+                }
+            }
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                 Button(role: .destructive) {
                     if let idx = recordings.firstIndex(of: item) {
