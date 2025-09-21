@@ -33,7 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           xcodebuild test \
-          -scheme ComfySpacesTests.xcodeproj \
+          -scheme ComfySpacesTests \
           -project ComfySpaces.xcodeproj \
           -sdk iphonesimulator \
           -destination 'platform=iOS Simulator,OS=latest,name=iPhone 16' \
