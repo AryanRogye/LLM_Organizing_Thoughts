@@ -31,6 +31,8 @@ struct RecordingList: View {
         }
     }
     
+    @State var selectedMoreItem: RecordingItem? = nil
+    
     var body: some View {
         ForEach(displayedRecordings) { item in
             RecordingRow(
@@ -42,8 +44,16 @@ struct RecordingList: View {
                     if let idx = recordings.firstIndex(of: item) {
                         deleteRecording?(IndexSet(integer: idx))
                     }
-                }
+                },
+                selectedItem: $selectedMoreItem
             )
+            .swipeActions(edge: .trailing) {
+                Button {
+                    selectedMoreItem = item
+                } label: {
+                    Label("more", systemImage: "ellipsis")
+                }
+            }
             .swipeActions(edge: .trailing) {
                 Button {
                     onEmojiGenerate?(item)
@@ -69,15 +79,29 @@ struct RecordingRow: View {
     var item: RecordingItem
     var playView: (URL) -> AudioView
     var deleteAction: () -> Void
+    @Binding var selectedItem: RecordingItem?
     
     var body: some View {
-        RecordingRowHeader(
-            emoji: item.emoji,
-            title: item.url.deletingPathExtension().lastPathComponent,
-            subtitle: "\(item.date.formatted(date: .abbreviated, time: .standard)) · \(formatTime(item.duration))",
-            playView: { playView(item.url) },
-            deleteAction: deleteAction
-        )
+        VStack(spacing: 0) {
+            RecordingRowHeader(
+                emoji: item.emoji,
+                title: item.url.deletingPathExtension().lastPathComponent,
+                subtitle: "\(item.date.formatted(date: .abbreviated, time: .standard)) · \(formatTime(item.duration))",
+                playView: { playView(item.url) },
+                deleteAction: deleteAction
+            )
+            if selectedItem == item {
+                HStack {
+                    Button(action: {
+                        selectedItem = nil
+                    }) {
+                        Text("Close More Options")
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: 30)
+                .border(Color(.secondarySystemBackground), width: 1)
+            }
+        }
     }
 }
 

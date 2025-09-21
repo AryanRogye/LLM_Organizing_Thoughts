@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FoundationModels
 
 struct Space: Identifiable, Codable, Equatable, Hashable {
     let id: UUID

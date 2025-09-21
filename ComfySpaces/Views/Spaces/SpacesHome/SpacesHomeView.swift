@@ -46,7 +46,7 @@ struct SpacesHomeView: View {
     private func addSpace() {
         let name = newProjectName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !name.isEmpty else { return }
-        spacesManager.addProject(named: name)
+        spacesManager.addSpace(named: name)
         newProjectName = ""
     }
 }

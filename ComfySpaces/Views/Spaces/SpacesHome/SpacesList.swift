@@ -29,7 +29,7 @@ struct SpacesList: View {
                         .contextMenu {
                             Button(role: .destructive) {
                                 withAnimation {
-                                    spacesManager.deleteProject(space.id)
+                                    spacesManager.deleteSpace(space.id)
                                 }
                             } label: {
                                 Label("Delete", systemImage: "trash")

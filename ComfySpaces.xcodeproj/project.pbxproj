@@ -42,6 +42,10 @@
 		9BD4BF222E7F8E5300278A0D /* Offline_Organizing_ThoughtsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4BF1F2E7F8E5300278A0D /* Offline_Organizing_ThoughtsUITests.swift */; };
 		9BD4BF232E7F8E5300278A0D /* Offline_Organizing_ThoughtsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4BF202E7F8E5300278A0D /* Offline_Organizing_ThoughtsUITestsLaunchTests.swift */; };
 		9BD4BF282E7F916900278A0D /* SpaceCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4BF272E7F916900278A0D /* SpaceCarouselView.swift */; };
+		9BD4BF2A2E7FB41200278A0D /* SpacesDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4BF292E7FB40A00278A0D /* SpacesDecider.swift */; };
+		9BD4BF382E807CD400278A0D /* SpaceManager+Persistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4BF372E807CD000278A0D /* SpaceManager+Persistance.swift */; };
+		9BD4BF3A2E807E4200278A0D /* SpacesManager+Columns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4BF392E807E3D00278A0D /* SpacesManager+Columns.swift */; };
+		9BD4BF3C2E807E5600278A0D /* SpacesManager+Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4BF3B2E807E5200278A0D /* SpacesManager+Items.swift */; };
 		9BD4C0022E7F9AAA00278A0D /* AppFileManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C0012E7F9AAA00278A0D /* AppFileManagerTests.swift */; };
 		9BF1C7FF2E7F38CA00522438 /* WhisperKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9BF1C7FE2E7F38CA00522438 /* WhisperKit */; };
 /* End PBXBuildFile section */
@@ -102,6 +106,12 @@
 		9BD4BF1F2E7F8E5300278A0D /* Offline_Organizing_ThoughtsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offline_Organizing_ThoughtsUITests.swift; sourceTree = "<group>"; };
 		9BD4BF202E7F8E5300278A0D /* Offline_Organizing_ThoughtsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offline_Organizing_ThoughtsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9BD4BF272E7F916900278A0D /* SpaceCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceCarouselView.swift; sourceTree = "<group>"; };
+		9BD4BF292E7FB40A00278A0D /* SpacesDecider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacesDecider.swift; sourceTree = "<group>"; };
+		9BD4BF2B2E8063AE00278A0D /* Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridging.h; sourceTree = "<group>"; };
+		9BD4BF322E806BA900278A0D /* FoundationModels.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FoundationModels.framework; path = System/Library/Frameworks/FoundationModels.framework; sourceTree = SDKROOT; };
+		9BD4BF372E807CD000278A0D /* SpaceManager+Persistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpaceManager+Persistance.swift"; sourceTree = "<group>"; };
+		9BD4BF392E807E3D00278A0D /* SpacesManager+Columns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpacesManager+Columns.swift"; sourceTree = "<group>"; };
+		9BD4BF3B2E807E5200278A0D /* SpacesManager+Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpacesManager+Items.swift"; sourceTree = "<group>"; };
 		9BD4C0012E7F9AAA00278A0D /* AppFileManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,6 +147,7 @@
 				9BD4BEFE2E7F8E5300278A0D /* ComfySpaces */,
 				9BD4BF252E7F8E5300278A0D /* ComfySpacesTests */,
 				9BD4BF212E7F8E5300278A0D /* ComfySpacesUITests */,
+				9BD4BF312E806BA900278A0D /* Frameworks */,
 				9B7D80232E7C9AC400E3E42B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -182,7 +193,8 @@
 		9BD4BED92E7F8E5300278A0D /* FoundationModel */ = {
 			isa = PBXGroup;
 			children = (
-				9BD4BED72E7F8E5300278A0D /* CleanResult.swift */,
+				9BD4BF2D2E8063E600278A0D /* Helper */,
+				9BD4BF2C2E8063DE00278A0D /* Spaces */,
 				9BD4BED82E7F8E5300278A0D /* EmojiPicker.swift */,
 			);
 			path = FoundationModel;
@@ -202,6 +214,9 @@
 			isa = PBXGroup;
 			children = (
 				9BD4BEDE2E7F8E5300278A0D /* SpacesManager.swift */,
+				9BD4BF3B2E807E5200278A0D /* SpacesManager+Items.swift */,
+				9BD4BF392E807E3D00278A0D /* SpacesManager+Columns.swift */,
+				9BD4BF372E807CD000278A0D /* SpaceManager+Persistance.swift */,
 			);
 			path = Spaces;
 			sourceTree = "<group>";
@@ -317,6 +332,7 @@
 		9BD4BEFE2E7F8E5300278A0D /* ComfySpaces */ = {
 			isa = PBXGroup;
 			children = (
+				9BD4BF2B2E8063AE00278A0D /* Bridging.h */,
 				9BD4BEFD2E7F8E5300278A0D /* ComfySpacesApp.swift */,
 				9BD4BEE32E7F8E5300278A0D /* Common */,
 				9BD4BEFA2E7F8E5300278A0D /* Views */,
@@ -342,6 +358,30 @@
 				9BD4C0012E7F9AAA00278A0D /* AppFileManagerTests.swift */,
 			);
 			path = ComfySpacesTests;
+			sourceTree = "<group>";
+		};
+		9BD4BF2C2E8063DE00278A0D /* Spaces */ = {
+			isa = PBXGroup;
+			children = (
+				9BD4BF292E7FB40A00278A0D /* SpacesDecider.swift */,
+			);
+			path = Spaces;
+			sourceTree = "<group>";
+		};
+		9BD4BF2D2E8063E600278A0D /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				9BD4BED72E7F8E5300278A0D /* CleanResult.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		9BD4BF312E806BA900278A0D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9BD4BF322E806BA900278A0D /* FoundationModels.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -493,7 +533,9 @@
 				9BD4BF042E7F8E5300278A0D /* AuthScreen.swift in Sources */,
 				9BD4BF052E7F8E5300278A0D /* AuthState.swift in Sources */,
 				9BD4BF062E7F8E5300278A0D /* CleanResult.swift in Sources */,
+				9BD4BF3C2E807E5600278A0D /* SpacesManager+Items.swift in Sources */,
 				9BD4BF072E7F8E5300278A0D /* EmojiPicker.swift in Sources */,
+				9BD4BF382E807CD400278A0D /* SpaceManager+Persistance.swift in Sources */,
 				9BD4BF082E7F8E5300278A0D /* RecordingItem.swift in Sources */,
 				9BD4BF092E7F8E5300278A0D /* Space.swift in Sources */,
 				9BD4BF0A2E7F8E5300278A0D /* Tabs.swift in Sources */,
@@ -506,6 +548,7 @@
 				9BD4BF102E7F8E5300278A0D /* RecordingList.swift in Sources */,
 				9BD4BF112E7F8E5300278A0D /* LibraryView.swift in Sources */,
 				9BD4BF122E7F8E5300278A0D /* ProjectsScreen.swift in Sources */,
+				9BD4BF3A2E807E4200278A0D /* SpacesManager+Columns.swift in Sources */,
 				9BD4BF132E7F8E5300278A0D /* RecordingScreen.swift in Sources */,
 				9BD4BF142E7F8E5300278A0D /* SettingsScreen.swift in Sources */,
 				9BD4BF152E7F8E5300278A0D /* SpacesHomeView.swift in Sources */,
@@ -514,6 +557,7 @@
 				9BD4BF182E7F8E5300278A0D /* SpacesMainRootView.swift in Sources */,
 				9BD4BF192E7F8E5300278A0D /* SpacesMainView.swift in Sources */,
 				9BD4BF1A2E7F8E5300278A0D /* SpacesRootView.swift in Sources */,
+				9BD4BF2A2E7FB41200278A0D /* SpacesDecider.swift in Sources */,
 				9BD4BF1B2E7F8E5300278A0D /* RootView.swift in Sources */,
 				9BD4BF1C2E7F8E5300278A0D /* ComfySpacesApp.swift in Sources */,
 			);
@@ -700,6 +744,7 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = ComfySpaces/Bridging.h;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -733,6 +778,7 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = ComfySpaces/Bridging.h;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

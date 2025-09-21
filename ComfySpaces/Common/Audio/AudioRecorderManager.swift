@@ -132,8 +132,8 @@ final class AudioRecorderManager: ObservableObject {
             let transcription = try await transcribe.transcribe(url: item.url, progress: { progress in
                 
             })
-            print("transcription: \(transcription)")
-            let emoji = try await emojiPicker.pick(from: transcription)
+            
+            let emoji = try await emojiPicker.pick(from: transcription, excluding: item.emoji)
             print("Got Back Emoji: \(emoji)")
             
             var itemCopy = item
