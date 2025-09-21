@@ -23,18 +23,19 @@ jobs:
         with:
           xcode-version: '16.4'
 
+      - name: Clean DerivedData (just in case)
+        run: rm -rf ~/Library/Developer/Xcode/DerivedData
+
       - name: Xcode version
         run: xcodebuild -version
 
       - name: Build and test (iOS Simulator)
         run: |
           set -euo pipefail
-          xcodebuild \
-            -project ComfySpaces.xcodeproj \
-            -scheme ComfySpaces \
-            -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,OS=latest,name=iPhone 16' \
-            -enableCodeCoverage YES \
-            CODE_SIGNING_ALLOWED=NO \
-            test
+          xcodebuild test \
+          -scheme ComfySpacesTests.xcodeproj \
+          -project ComfySpaces.xcodeproj \
+          -sdk iphonesimulator \
+          -destination 'platform=iOS Simulator,OS=latest,name=iPhone 16' \
+          -enableCodeCoverage YES | xcpretty
 

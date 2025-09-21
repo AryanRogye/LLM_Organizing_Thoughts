@@ -29,30 +29,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
-      <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9B7D802E2E7C9AC500E3E42B"
-               BuildableName = "ComfySpacesTests.xctest"
-               BlueprintName = "ComfySpacesTests"
-               ReferencedContainer = "container:ComfySpaces.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9B7D80382E7C9AC500E3E42B"
-               BuildableName = "ComfySpacesUITests.xctest"
-               BlueprintName = "ComfySpacesUITests"
-               ReferencedContainer = "container:ComfySpaces.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
