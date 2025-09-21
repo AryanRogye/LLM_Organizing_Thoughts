@@ -12,11 +12,15 @@ public struct RecordingItem: Identifiable, Equatable {
     public let url: URL
     public let date: Date
     public let duration: TimeInterval
+    public var emoji: String?
+    public var name: String?
     
-    public init(url: URL, date: Date, duration: TimeInterval) {
+    public init(url: URL, date: Date, duration: TimeInterval, emoji: String? = nil, name: String? = nil) {
         self.url = url
         self.date = date
         self.duration = duration
+        self.emoji = emoji
+        self.name = name
     }
 }
 

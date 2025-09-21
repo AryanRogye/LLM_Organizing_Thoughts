@@ -135,6 +135,17 @@ final class AudioRecorderManager: ObservableObject {
             print("transcription: \(transcription)")
             let emoji = try await emojiPicker.pick(from: transcription)
             print("Got Back Emoji: \(emoji)")
+            
+            var itemCopy = item
+            itemCopy.emoji = emoji
+            
+            fileManagerBridge.setEmoji(for: itemCopy)
+            
+            await MainActor.run {
+                if let idx = recordings.firstIndex(where: { $0.id == item.id }) {
+                    recordings[idx].emoji = emoji
+                }
+            }
         }
     }
 }

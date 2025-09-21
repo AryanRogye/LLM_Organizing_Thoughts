@@ -72,6 +72,7 @@ struct RecordingRow: View {
     
     var body: some View {
         RecordingRowHeader(
+            emoji: item.emoji,
             title: item.url.deletingPathExtension().lastPathComponent,
             subtitle: "\(item.date.formatted(date: .abbreviated, time: .standard)) · \(formatTime(item.duration))",
             playView: { playView(item.url) },
@@ -82,6 +83,7 @@ struct RecordingRow: View {
 
 // MARK: - Subviews for RecordingRow
 struct RecordingRowHeader: View {
+    let emoji: String?
     let title: String
     let subtitle: String
     var playView: () -> AudioView
@@ -89,6 +91,10 @@ struct RecordingRowHeader: View {
     
     var body: some View {
         HStack(spacing: 12) {
+            if let emoji, !emoji.isEmpty {
+                Text(emoji)
+                    .font(.title2)
+            }
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(.headline)
