@@ -30,28 +30,13 @@ struct SpacesMainView: View {
     
     var body: some View {
         VStack(spacing: 12) {
-            ScrollView(.horizontal) {
-                ScrollView(.vertical) {
-                    HStack(alignment: .top, spacing: 16) {
-                        ForEach(space.columns) { column in
-                            KanbanColumnView(
-                                column: column,
-                                items: items(for: column),
-                                onDelete: { id in withAnimation(.snappy) {
-                                    spacesManager.deleteItem(id)
-                                }},
-                                onMoveHere: { id in withAnimation(.snappy) {
-                                    spacesManager.moveItem(id, toColumn: column.id)
-                                }},
-                                onDeleteColumn: { withAnimation(.snappy) {
-                                    spacesManager.deleteColumn(column.id)
-                                }}
-                            )
-                            .glassEffect(.regular, in: .rect(cornerRadius: 18))
-                        }
-                    }
-                }
-            }
+            KanbanCanvasView(
+                columns: space.columns,
+                itemsProvider: { column in items(for: column) },
+                onDelete: { id in withAnimation(.snappy) { spacesManager.deleteItem(id) } },
+                onMove: { id, toColumn in withAnimation(.snappy) { spacesManager.moveItem(id, toColumn: toColumn) } },
+                onDeleteColumn: { columnID in withAnimation(.snappy) { spacesManager.deleteColumn(columnID) } }
+            )
         }
         .animation(.snappy, value: spacesManager.selectedSpace?.items)
         .searchable(text: $searchText, prompt: "Search items")
