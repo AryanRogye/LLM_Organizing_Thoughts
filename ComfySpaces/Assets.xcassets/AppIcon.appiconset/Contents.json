@@ -13,6 +13,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "ComfySpacesDark.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -24,6 +25,7 @@
           "value" : "tinted"
         }
       ],
+      "filename" : "ComfySpacesTinted.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"

@@ -9,5 +9,11 @@
     <key>NSFaceIDUsageDescription</key>
     <string>We use Face ID to protect your recordings.</string>
     
+    <!-- Expose app Documents folder in Files/Finder -->
+    <key>UIFileSharingEnabled</key>
+    <true/>
+    <key>LSSupportsOpeningDocumentsInPlace</key>
+    <true/>
+    
 </dict>
 </plist>
