@@ -12,7 +12,7 @@ struct KanbanCanvasView: View {
     let itemsProvider: (KanbanColumn) -> [KanbanItem]
     let onDelete: (UUID) -> Void
     let onMove: (UUID, UUID) -> Void // (itemID, toColumnID)
-    let onDeleteColumn: (UUID) -> Void
+    let onDeleteColumn: (UUID) -> SpacesManagerError
     
     @State private var zoomScale: CGFloat = 1.0
     @State private var steadyZoomScale: CGFloat = 1.0

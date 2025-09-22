@@ -10,6 +10,8 @@ import SwiftUI
 struct SpacesList: View {
     
     @EnvironmentObject var spacesManager: SpacesManager
+    @State private var isShowingDeleteConfirm: Bool = false
+    @State private var pendingDeleteSpaceID: UUID? = nil
     
     var body: some View {
         if spacesManager.spaces.isEmpty {
@@ -28,9 +30,8 @@ struct SpacesList: View {
                         .padding(.horizontal, 16)
                         .contextMenu {
                             Button(role: .destructive) {
-                                withAnimation {
-                                    spacesManager.deleteSpace(space.id)
-                                }
+                                pendingDeleteSpaceID = space.id
+                                isShowingDeleteConfirm = true
                             } label: {
                                 Label("Delete", systemImage: "trash")
                             }
@@ -43,6 +44,21 @@ struct SpacesList: View {
             }
             .padding(.vertical, 8)
             .animation(.snappy, value: spacesManager.spaces)
+            .alert("Delete this space?", isPresented: $isShowingDeleteConfirm) {
+                Button("Delete", role: .destructive) {
+                    if let id = pendingDeleteSpaceID {
+                        withAnimation {
+                            spacesManager.deleteSpace(id)
+                        }
+                    }
+                    pendingDeleteSpaceID = nil
+                }
+                Button("Cancel", role: .cancel) {
+                    pendingDeleteSpaceID = nil
+                }
+            } message: {
+                Text("This action cannot be undone.")
+            }
         }
     }
 }

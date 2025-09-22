@@ -21,7 +21,12 @@ struct KanbanColumnView: View {
     let items: [KanbanItem]
     let onDelete: (UUID) -> Void
     let onMoveHere: (UUID) -> Void
-    let onDeleteColumn: () -> Void
+    let onDeleteColumn: () -> SpacesManagerError
+    
+    @State private var isShowingError: Bool = false
+    @State private var error: String? = nil
+    @State private var isShowingDeleteConfirm: Bool = false
+    @State private var pendingDeleteItemID: UUID? = nil
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -41,6 +46,11 @@ struct KanbanColumnView: View {
             // Optional visual feedback could be added here
         }
         .animation(.snappy, value: items)
+        .alert("Can't delete “\(column.name)”", isPresented: $isShowingError, presenting: error) { _ in
+            Button("OK", role: .cancel) {}
+        } message: { err in
+            Text(err)
+        }
     }
     
     private var cardsList: some View {
@@ -56,7 +66,10 @@ struct KanbanColumnView: View {
                     }
                     HStack(spacing: 8) {
                         Button("Move here") { onMoveHere(item.id) }
-                        Button(role: .destructive) { onDelete(item.id) } label: {
+                        Button(role: .destructive) {
+                            pendingDeleteItemID = item.id
+                            isShowingDeleteConfirm = true
+                        } label: {
                             Label("Delete", systemImage: "trash")
                         }
                     }
@@ -81,6 +94,19 @@ struct KanbanColumnView: View {
         }
         .padding(.horizontal, 10)
         .padding(.bottom, 10)
+        .alert("Delete this card?", isPresented: $isShowingDeleteConfirm) {
+            Button("Delete", role: .destructive) {
+                if let id = pendingDeleteItemID {
+                    onDelete(id)
+                }
+                pendingDeleteItemID = nil
+            }
+            Button("Cancel", role: .cancel) {
+                pendingDeleteItemID = nil
+            }
+        } message: {
+            Text("This action cannot be undone.")
+        }
     }
     
     private var header: some View {
@@ -92,7 +118,17 @@ struct KanbanColumnView: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
             Menu {
-                Button(role: .destructive) { onDeleteColumn() } label: {
+                Button(role: .destructive) {
+                    
+                    let onDelete = onDeleteColumn()
+                    
+                    if onDelete == .itemsExistInColumn {
+                        error = "Cannot delete column because it contains items."
+                        isShowingError = true
+                    }
+                    
+                    
+                } label: {
                     Label("Delete Column", systemImage: "trash")
                 }
             } label: {

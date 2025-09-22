@@ -6,6 +6,12 @@
 //
 
 import Foundation
+
+enum SpacesManagerError: Error {
+    case none
+    case itemsExistInColumn
+}
+
 // ==============================================================
 // Columns
 // ==============================================================
@@ -39,8 +45,18 @@ extension SpacesManager {
     // ==============================================================
     // MARK: - Delete Column
     // ==============================================================
-    func deleteColumn(_ columnID: UUID, reassignTo fallbackColumnID: UUID? = nil) {
-        guard let selID = selectedSpace?.id, let pIdx = spaces.firstIndex(where: { $0.id == selID }) else { return }
+    @discardableResult
+    func deleteColumn(_ columnID: UUID, reassignTo fallbackColumnID: UUID? = nil) -> SpacesManagerError {
+        guard let selID = selectedSpace?.id, let pIdx = spaces.firstIndex(where: { $0.id == selID }) else { return .none }
+        
+        /// Abort if the column contains any items
+        if spaces[pIdx].items.contains(where: {
+            $0.columnID == columnID
+        }) {
+            print("Attempting To Delete Column That Contains Items. Aborting.")
+            return .itemsExistInColumn
+        }
+        
         // Determine destination for items currently in the deleted column
         let destinationID: UUID? = fallbackColumnID ?? spaces[pIdx].columns.first(where: { $0.id != columnID })?.id
         // Reassign or remove items
@@ -57,6 +73,7 @@ extension SpacesManager {
         spaces[pIdx].columns.removeAll { $0.id == columnID }
         selectedSpace = spaces[pIdx]
         save()
+        return .none
     }
 }
 
