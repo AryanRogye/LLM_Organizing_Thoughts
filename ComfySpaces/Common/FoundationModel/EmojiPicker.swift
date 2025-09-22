@@ -44,6 +44,23 @@ final class EmojiPickerService: EmojiPickerProviding {
             """
     )
     
+    // Request a second candidate that avoids both the excluded emoji and the primary choic
+    private func requestSecondCandidate(using text: String, excluding: String, and excluding_2: String) async throws -> String {
+        let second = try await Self.session.respond(
+            generating: EmojiResult.self,
+            options: .init(sampling: .greedy)
+        ) {
+            Prompt {
+                "Transcript:\n\(text)\n"
+                "Return only one emoji via the `emoji` field."
+                "Do not choose the emoji: \(excluding)"
+                "Also do not choose the emoji: \(excluding_2)"
+                "Pick a different emoji than \(excluding_2)."
+            }
+        }
+        return second.content.emoji
+    }
+    
     func pick(
         from transcript: String,
         excluding: String? = nil,
@@ -65,45 +82,46 @@ final class EmojiPickerService: EmojiPickerProviding {
             }
             
             let chosen = res.content.emoji
-            print("Primary emoji: \(chosen)")
-
-            // If no exclusion requested, return the primary choice
-            guard let excluding = excluding else { return chosen }
             
+
             emoji_one(chosen)
-
-            // Request a second candidate that avoids both the excluded emoji and the primary choice
-            func requestSecondCandidate() async throws -> String {
-                let second = try await Self.session.respond(
-                    generating: EmojiResult.self,
-                    options: .init(sampling: .greedy)
-                ) {
-                    Prompt {
-                        "Transcript:\n\(cleaned)\n"
-                        "Return only one emoji via the `emoji` field."
-                        "Do not choose the emoji: \(excluding)"
-                        "Also do not choose the emoji: \(chosen)"
-                        "Pick a different emoji than \(chosen)."
-                    }
-                }
-                return second.content.emoji
+            
+            // If no exclusion requested, return the primary choice
+            guard let excluding = excluding else {
+                emoji_two(chosen)
+                final_emoji(chosen)
+                return chosen
             }
+            
 
-            var secondStr = try await requestSecondCandidate()
+            var secondStr = try await requestSecondCandidate(
+                using: cleaned,
+                excluding: chosen, and: excluding
+            )
+            
 
             // If the model still returns a duplicate (or the excluded), try one more time
             if secondStr == chosen || secondStr == excluding {
-                secondStr = try await requestSecondCandidate()
+                secondStr = try await requestSecondCandidate(
+                    using: cleaned,
+                    excluding: chosen, and: excluding
+                )
             }
 
-            print("Second candidate emoji: \(secondStr)")
             emoji_two(secondStr)
 
             // If we still failed to produce a distinct second candidate, just return the primary
-            guard secondStr != chosen, secondStr != excluding else {
-                print("Could not obtain a distinct second candidate; returning primary.")
-                return chosen
+            
+            /// If The Second Chosen, and First Chosen Is Same
+            if secondStr == chosen {
+                /// AND
+                /// Second Chosen and Excluding is the same
+                if secondStr == excluding {
+                    final_emoji(chosen)
+                    return chosen
+                }
             }
+            
 
             let decider = try await Self.emojiDecider.respond(
                 generating: EmojiResult.self,
@@ -116,10 +134,11 @@ final class EmojiPickerService: EmojiPickerProviding {
                     "Emoji_2: \(secondStr)"
                 }
             }
+            
+            let final = decider.content.emoji
 
-            print("Returning emoji: \(decider.content.emoji)")
-            final_emoji(decider.content.emoji)
-            return decider.content.emoji
+            final_emoji(final)
+            return final
             
         } catch {
             return "🤔"

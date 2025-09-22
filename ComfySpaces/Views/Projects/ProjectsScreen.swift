@@ -31,7 +31,6 @@ struct ProjectsScreen: View {
         } else {
             ZStack {
                 VStack {
-                    
                     topRow
                     ScrollView {
                         // Track scroll offset at the very top of the scroll view
@@ -119,6 +118,7 @@ struct ProjectsScreen: View {
             }
             .frame(height: 170)
         }
+        .padding(.top)
     }
     
     // MARK: - Recent Records

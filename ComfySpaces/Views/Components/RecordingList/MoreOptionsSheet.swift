@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MoreOptionsSheet: View {
-    let item: RecordingItem
+    @State var item: RecordingItem
     var onClose: () -> Void
     
     /// PARAMETERS:
@@ -71,6 +71,7 @@ struct MoreOptionsSheet: View {
     
     // MARK: - Actions
     private func triggerEmojiGeneration() {
+        
         transcription = nil
         first = nil
         second = nil
@@ -87,6 +88,7 @@ struct MoreOptionsSheet: View {
                 { e in final = e },
                 { d in transcriptDuration = d }
             )
+            item.emoji = final
             isGenerating = false
         }
     }
